@@ -7,8 +7,8 @@ from aspect_extraction.evaluation.metrics import (
     calculate_f1,
     calculate_precision,
     calculate_recall,
-    evaluate_extraction,
     evaluate_batch,
+    evaluate_extraction,
 )
 
 

@@ -6,9 +6,9 @@ from typing import List, Optional
 
 import click
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
 from rich.progress import Progress
+from rich.table import Table
 
 from aspect_extraction import __version__
 from aspect_extraction.core.factory import create_extractor

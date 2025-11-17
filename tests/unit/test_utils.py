@@ -4,11 +4,11 @@ import pytest
 
 from aspect_extraction.utils.text_processing import (
     clean_text,
-    tokenize,
     extract_sentences,
-    remove_stopwords,
     get_ngrams,
     normalize_whitespace,
+    remove_stopwords,
+    tokenize,
     truncate_text,
 )
 
