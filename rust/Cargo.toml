@@ -1,0 +1,36 @@
+[workspace]
+resolver = "2"
+members = [
+    "aspect-extraction-core",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Aspect Extraction Team"]
+license = "MIT"
+repository = "https://github.com/duyetdev/aspect-extraction"
+
+[workspace.dependencies]
+# Core dependencies
+thiserror = "1.0"
+anyhow = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Text processing
+regex = "1.10"
+unicode-segmentation = "1.11"
+
+# ML/NLP (for future transformer support)
+tokenizers = "0.15"
+
+# Python bindings
+pyo3 = { version = "0.20", features = ["extension-module"] }
+
+# Performance
+rayon = "1.8"
+hashbrown = "0.14"
+
+# Testing
+criterion = "0.5"
