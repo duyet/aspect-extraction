@@ -103,7 +103,7 @@ class TestEvaluateExtraction:
 
         result = evaluate_extraction(predicted, ground_truth)
 
-        assert result.precision == 2/3
+        assert result.precision == 2 / 3
         assert result.recall == 1.0
         assert result.true_positives == 2
         assert result.false_positives == 1

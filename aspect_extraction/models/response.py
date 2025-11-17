@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from aspect_extraction.core.aspect import Sentiment
 
@@ -19,17 +19,8 @@ class AspectResponse(BaseModel):
         end_pos: Ending character position
     """
 
-    text: str = Field(..., description="Aspect text")
-    category: Optional[str] = Field(None, description="Aspect category")
-    sentiment: Optional[Sentiment] = Field(None, description="Sentiment polarity")
-    confidence: float = Field(..., ge=0.0, le=1.0, description="Confidence score")
-    start_pos: Optional[int] = Field(None, description="Start position in text")
-    end_pos: Optional[int] = Field(None, description="End position in text")
-
-    class Config:
-        """Pydantic config."""
-
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "text": "battery life",
                 "category": "hardware",
@@ -39,6 +30,14 @@ class AspectResponse(BaseModel):
                 "end_pos": 47,
             }
         }
+    )
+
+    text: str = Field(..., description="Aspect text")
+    category: Optional[str] = Field(None, description="Aspect category")
+    sentiment: Optional[Sentiment] = Field(None, description="Sentiment polarity")
+    confidence: float = Field(..., ge=0.0, le=1.0, description="Confidence score")
+    start_pos: Optional[int] = Field(None, description="Start position in text")
+    end_pos: Optional[int] = Field(None, description="End position in text")
 
 
 class ExtractionResponse(BaseModel):
@@ -50,14 +49,8 @@ class ExtractionResponse(BaseModel):
         processing_time_ms: Processing time in milliseconds
     """
 
-    aspects: List[AspectResponse] = Field(..., description="Extracted aspects")
-    method_used: str = Field(..., description="Extraction method used")
-    processing_time_ms: float = Field(..., description="Processing time in milliseconds")
-
-    class Config:
-        """Pydantic config."""
-
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "aspects": [
                     {
@@ -75,6 +68,11 @@ class ExtractionResponse(BaseModel):
                 "processing_time_ms": 45.2,
             }
         }
+    )
+
+    aspects: List[AspectResponse] = Field(..., description="Extracted aspects")
+    method_used: str = Field(..., description="Extraction method used")
+    processing_time_ms: float = Field(..., description="Processing time in milliseconds")
 
 
 class BatchExtractionResponse(BaseModel):
@@ -88,16 +86,8 @@ class BatchExtractionResponse(BaseModel):
         processing_time_ms: Total processing time in milliseconds
     """
 
-    results: List[List[AspectResponse]] = Field(..., description="Extraction results for each text")
-    total_texts: int = Field(..., description="Total number of texts processed")
-    total_aspects: int = Field(..., description="Total number of aspects extracted")
-    method_used: str = Field(..., description="Extraction method used")
-    processing_time_ms: float = Field(..., description="Total processing time in milliseconds")
-
-    class Config:
-        """Pydantic config."""
-
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "results": [
                     [{"text": "camera quality", "sentiment": "positive", "confidence": 0.92}],
@@ -109,6 +99,13 @@ class BatchExtractionResponse(BaseModel):
                 "processing_time_ms": 78.5,
             }
         }
+    )
+
+    results: List[List[AspectResponse]] = Field(..., description="Extraction results for each text")
+    total_texts: int = Field(..., description="Total number of texts processed")
+    total_aspects: int = Field(..., description="Total number of aspects extracted")
+    method_used: str = Field(..., description="Extraction method used")
+    processing_time_ms: float = Field(..., description="Total processing time in milliseconds")
 
 
 class EvaluationResponse(BaseModel):
@@ -123,17 +120,8 @@ class EvaluationResponse(BaseModel):
         false_negatives: Number of missed predictions
     """
 
-    precision: float = Field(..., ge=0.0, le=1.0, description="Precision score")
-    recall: float = Field(..., ge=0.0, le=1.0, description="Recall score")
-    f1_score: float = Field(..., ge=0.0, le=1.0, description="F1 score")
-    true_positives: int = Field(..., ge=0, description="True positives")
-    false_positives: int = Field(..., ge=0, description="False positives")
-    false_negatives: int = Field(..., ge=0, description="False negatives")
-
-    class Config:
-        """Pydantic config."""
-
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "precision": 0.85,
                 "recall": 0.78,
@@ -143,6 +131,14 @@ class EvaluationResponse(BaseModel):
                 "false_negatives": 4,
             }
         }
+    )
+
+    precision: float = Field(..., ge=0.0, le=1.0, description="Precision score")
+    recall: float = Field(..., ge=0.0, le=1.0, description="Recall score")
+    f1_score: float = Field(..., ge=0.0, le=1.0, description="F1 score")
+    true_positives: int = Field(..., ge=0, description="True positives")
+    false_positives: int = Field(..., ge=0, description="False positives")
+    false_negatives: int = Field(..., ge=0, description="False negatives")
 
 
 class HealthResponse(BaseModel):
@@ -153,15 +149,14 @@ class HealthResponse(BaseModel):
         version: API version
     """
 
-    status: str = Field(..., description="Service status")
-    version: str = Field(..., description="API version")
-
-    class Config:
-        """Pydantic config."""
-
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "status": "healthy",
                 "version": "0.1.0",
             }
         }
+    )
+
+    status: str = Field(..., description="Service status")
+    version: str = Field(..., description="API version")

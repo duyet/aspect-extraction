@@ -184,7 +184,9 @@ class TransformerExtractor(AspectExtractor):
 
         for match in re.finditer(single_pattern, text, re.IGNORECASE):
             # Check if not already captured in bigram
-            if not any(match.start() >= start and match.end() <= end for _, start, end in candidates):
+            if not any(
+                match.start() >= start and match.end() <= end for _, start, end in candidates
+            ):
                 candidates.append((match.group(1), match.start(), match.end()))
 
         return candidates
@@ -238,7 +240,9 @@ class TransformerExtractor(AspectExtractor):
             # Fallback if analysis fails
             return None, 0.5
 
-    def extract_batch(self, texts: List[str], batch_size: Optional[int] = None) -> List[List[Aspect]]:
+    def extract_batch(
+        self, texts: List[str], batch_size: Optional[int] = None
+    ) -> List[List[Aspect]]:
         """Extract aspects from multiple texts efficiently.
 
         Args:

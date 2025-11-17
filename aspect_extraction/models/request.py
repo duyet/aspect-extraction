@@ -2,7 +2,7 @@
 
 from typing import List, Literal, Optional
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from aspect_extraction.core.factory import ExtractorMethod
 
@@ -17,12 +17,26 @@ class ExtractionRequest(BaseModel):
         min_confidence: Minimum confidence threshold (0-1)
     """
 
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "text": "The camera quality is excellent but battery life is poor",
+                "method": "auto",
+                "include_sentiment": True,
+                "min_confidence": 0.5,
+            }
+        }
+    )
+
     text: str = Field(..., min_length=1, max_length=10000, description="Text to analyze")
     method: ExtractorMethod = Field(
-        default="auto", description="Extraction method: rule, statistical, transformer, or auto"
+        default="auto",
+        description="Extraction method: rule, statistical, transformer, or auto",
     )
     include_sentiment: bool = Field(default=True, description="Include sentiment analysis")
-    min_confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Minimum confidence threshold")
+    min_confidence: float = Field(
+        default=0.0, ge=0.0, le=1.0, description="Minimum confidence threshold"
+    )
 
     @field_validator("text")
     @classmethod
@@ -31,18 +45,6 @@ class ExtractionRequest(BaseModel):
         if not v.strip():
             raise ValueError("Text cannot be empty or whitespace only")
         return v
-
-    class Config:
-        """Pydantic config."""
-
-        json_schema_extra = {
-            "example": {
-                "text": "The camera quality is excellent but battery life is poor",
-                "method": "auto",
-                "include_sentiment": True,
-                "min_confidence": 0.5,
-            }
-        }
 
 
 class BatchExtractionRequest(BaseModel):
@@ -56,27 +58,8 @@ class BatchExtractionRequest(BaseModel):
         batch_size: Batch size for processing
     """
 
-    texts: List[str] = Field(..., min_length=1, max_length=100, description="Texts to analyze")
-    method: ExtractorMethod = Field(
-        default="auto", description="Extraction method: rule, statistical, transformer, or auto"
-    )
-    include_sentiment: bool = Field(default=True, description="Include sentiment analysis")
-    min_confidence: float = Field(default=0.0, ge=0.0, le=1.0, description="Minimum confidence threshold")
-    batch_size: int = Field(default=32, ge=1, le=100, description="Batch size for processing")
-
-    @field_validator("texts")
-    @classmethod
-    def validate_texts(cls, v: List[str]) -> List[str]:
-        """Validate that all texts are non-empty."""
-        for i, text in enumerate(v):
-            if not text.strip():
-                raise ValueError(f"Text at index {i} cannot be empty or whitespace only")
-        return v
-
-    class Config:
-        """Pydantic config."""
-
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "texts": [
                     "The camera quality is excellent",
@@ -88,6 +71,27 @@ class BatchExtractionRequest(BaseModel):
                 "batch_size": 32,
             }
         }
+    )
+
+    texts: List[str] = Field(..., min_length=1, max_length=100, description="Texts to analyze")
+    method: ExtractorMethod = Field(
+        default="auto",
+        description="Extraction method: rule, statistical, transformer, or auto",
+    )
+    include_sentiment: bool = Field(default=True, description="Include sentiment analysis")
+    min_confidence: float = Field(
+        default=0.0, ge=0.0, le=1.0, description="Minimum confidence threshold"
+    )
+    batch_size: int = Field(default=32, ge=1, le=100, description="Batch size for processing")
+
+    @field_validator("texts")
+    @classmethod
+    def validate_texts(cls, v: List[str]) -> List[str]:
+        """Validate that all texts are non-empty."""
+        for i, text in enumerate(v):
+            if not text.strip():
+                raise ValueError(f"Text at index {i} cannot be empty or whitespace only")
+        return v
 
 
 class EvaluationRequest(BaseModel):
@@ -99,17 +103,18 @@ class EvaluationRequest(BaseModel):
         match_sentiment: Whether to require sentiment match
     """
 
-    predicted_aspects: List[str] = Field(..., description="Predicted aspect texts")
-    ground_truth_aspects: List[str] = Field(..., description="Ground truth aspect texts")
-    match_sentiment: bool = Field(default=False, description="Require sentiment match for evaluation")
-
-    class Config:
-        """Pydantic config."""
-
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "predicted_aspects": ["battery life", "camera quality"],
                 "ground_truth_aspects": ["battery life", "screen quality"],
                 "match_sentiment": False,
             }
         }
+    )
+
+    predicted_aspects: List[str] = Field(..., description="Predicted aspect texts")
+    ground_truth_aspects: List[str] = Field(..., description="Ground truth aspect texts")
+    match_sentiment: bool = Field(
+        default=False, description="Require sentiment match for evaluation"
+    )

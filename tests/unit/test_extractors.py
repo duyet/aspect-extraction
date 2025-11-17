@@ -131,11 +131,13 @@ class TestStatisticalExtractor:
         extractor = StatisticalExtractor()
 
         # Train with some data
-        extractor.train([
-            "battery life",
-            "battery life is good",
-            "great battery",
-        ])
+        extractor.train(
+            [
+                "battery life",
+                "battery life is good",
+                "great battery",
+            ]
+        )
 
         # Calculate PMI
         pmi = extractor.calculate_pmi("battery", "life")
@@ -146,11 +148,13 @@ class TestStatisticalExtractor:
         extractor = StatisticalExtractor()
 
         # Train with data
-        extractor.train([
-            "battery life is great",
-            "battery life is good",
-            "camera quality is excellent",
-        ])
+        extractor.train(
+            [
+                "battery life is great",
+                "battery life is good",
+                "camera quality is excellent",
+            ]
+        )
 
         top_aspects = extractor.get_top_aspects(n=5)
 

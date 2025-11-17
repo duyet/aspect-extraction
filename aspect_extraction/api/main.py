@@ -246,7 +246,9 @@ async def evaluate(request: EvaluationRequest) -> EvaluationResponse:
         ground_truth = [Aspect(text=text) for text in request.ground_truth_aspects]
 
         # Evaluate
-        result = evaluate_extraction(predicted, ground_truth, match_sentiment=request.match_sentiment)
+        result = evaluate_extraction(
+            predicted, ground_truth, match_sentiment=request.match_sentiment
+        )
 
         return EvaluationResponse(
             precision=result.precision,

@@ -88,7 +88,9 @@ def extract(
             table.add_column("Confidence", justify="right", style="green")
 
             for aspect in aspects:
-                sentiment_str = aspect.sentiment.value if aspect.sentiment and not no_sentiment else "-"
+                sentiment_str = (
+                    aspect.sentiment.value if aspect.sentiment and not no_sentiment else "-"
+                )
                 confidence_str = f"{aspect.confidence:.2f}"
 
                 # Color code sentiment
@@ -157,9 +159,7 @@ def extract_file(
         # Process texts with progress bar
         all_aspects = []
         with Progress() as progress:
-            task = progress.add_task(
-                f"[cyan]Processing {len(texts)} texts...", total=len(texts)
-            )
+            task = progress.add_task(f"[cyan]Processing {len(texts)} texts...", total=len(texts))
 
             for text in texts:
                 aspects = extractor.extract(text)
@@ -173,17 +173,13 @@ def extract_file(
 
         # Output results
         total_aspects = sum(len(aspects) for aspects in all_aspects)
-        console.print(
-            f"[green]Processed {len(texts)} texts, found {total_aspects} aspects[/green]"
-        )
+        console.print(f"[green]Processed {len(texts)} texts, found {total_aspects} aspects[/green]")
 
         if output:
             import json
 
             output_path = Path(output)
-            output_data = [
-                [a.to_dict() for a in aspects] for aspects in all_aspects
-            ]
+            output_data = [[a.to_dict() for a in aspects] for aspects in all_aspects]
             output_path.write_text(json.dumps(output_data, indent=2))
             console.print(f"[green]Results saved to {output}[/green]")
         else:

@@ -305,11 +305,15 @@ class RuleBasedExtractor(AspectExtractor):
         context_lower = context.lower()
 
         positive_count = sum(
-            1 for word in self._sentiment_lexicon if self._sentiment_lexicon[word] == Sentiment.POSITIVE and word in context_lower
+            1
+            for word in self._sentiment_lexicon
+            if self._sentiment_lexicon[word] == Sentiment.POSITIVE and word in context_lower
         )
 
         negative_count = sum(
-            1 for word in self._sentiment_lexicon if self._sentiment_lexicon[word] == Sentiment.NEGATIVE and word in context_lower
+            1
+            for word in self._sentiment_lexicon
+            if self._sentiment_lexicon[word] == Sentiment.NEGATIVE and word in context_lower
         )
 
         if positive_count > 0 and negative_count > 0:

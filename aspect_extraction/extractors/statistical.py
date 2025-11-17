@@ -330,8 +330,12 @@ class StatisticalExtractor(AspectExtractor):
             return 0.0
 
         # Count individual words
-        word1_count = sum(count for (w1, _), count in self._collocation_counts.items() if w1 == word1.lower())
-        word2_count = sum(count for (_, w2), count in self._collocation_counts.items() if w2 == word2.lower())
+        word1_count = sum(
+            count for (w1, _), count in self._collocation_counts.items() if w1 == word1.lower()
+        )
+        word2_count = sum(
+            count for (_, w2), count in self._collocation_counts.items() if w2 == word2.lower()
+        )
 
         total_bigrams = sum(self._collocation_counts.values())
 
