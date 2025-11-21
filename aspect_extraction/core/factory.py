@@ -81,9 +81,7 @@ def create_extractor(
     elif backend == "python":
         use_rust = False
     else:
-        raise ValueError(
-            f"Invalid backend '{backend}'. Choose from: 'auto', 'rust', 'python'"
-        )
+        raise ValueError(f"Invalid backend '{backend}'. Choose from: 'auto', 'rust', 'python'")
 
     # Create extractor based on method and backend
     if method == "rule":

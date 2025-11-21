@@ -133,9 +133,7 @@ class TestRustBackend:
 
     def test_rust_with_min_confidence(self):
         """Test Rust extractor with confidence threshold."""
-        extractor = create_extractor(
-            method="rule", backend="rust", min_confidence=0.8
-        )
+        extractor = create_extractor(method="rule", backend="rust", min_confidence=0.8)
 
         text = "The camera is nice"
         aspects = extractor.extract(text)
