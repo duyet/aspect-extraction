@@ -1,6 +1,6 @@
 """Request models for the API."""
 
-from typing import List, Literal, Optional
+from typing import List
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 

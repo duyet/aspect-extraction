@@ -67,7 +67,7 @@ class TransformerExtractor(AspectExtractor):
 
         try:
             import torch
-            from transformers import (
+            from transformers import (  # noqa: F401
                 AutoModelForTokenClassification,
                 AutoTokenizer,
                 pipeline,

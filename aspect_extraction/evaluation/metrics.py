@@ -1,7 +1,7 @@
 """Evaluation metrics for aspect extraction."""
 
 from dataclasses import dataclass
-from typing import List, Set
+from typing import List
 
 from aspect_extraction.core.aspect import Aspect
 

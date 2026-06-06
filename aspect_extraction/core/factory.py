@@ -1,6 +1,6 @@
 """Factory function for creating aspect extractors."""
 
-from typing import List, Literal, Optional
+from typing import List, Literal
 
 from aspect_extraction.core.aspect import Aspect
 from aspect_extraction.core.extractor import AspectExtractor
@@ -28,7 +28,7 @@ def is_rust_available() -> bool:
     return _RUST_AVAILABLE
 
 
-def create_extractor(
+def create_extractor(  # noqa: C901
     method: ExtractorMethod = "auto",
     backend: BackendType = "auto",
     **kwargs,  # type: ignore

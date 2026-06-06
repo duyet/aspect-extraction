@@ -1,6 +1,6 @@
 """Statistical aspect extractor using frequency and collocation analysis."""
 
-from collections import Counter, defaultdict
+from collections import Counter
 from typing import Dict, List, Optional, Set, Tuple
 
 import numpy as np

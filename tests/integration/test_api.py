@@ -1,6 +1,5 @@
 """Integration tests for FastAPI endpoints."""
 
-import pytest
 from fastapi.testclient import TestClient
 
 from aspect_extraction.api.main import app
