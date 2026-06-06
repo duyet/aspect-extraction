@@ -1,0 +1,42 @@
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "aspect-extraction-core"
+description = "High-performance Rust implementation of aspect extraction with Python bindings"
+readme = "../README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Aspect Extraction Team" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+]
+keywords = ["nlp", "aspect-extraction", "sentiment-analysis", "text-mining", "rust", "pyo3"]
+
+[project.urls]
+Homepage = "https://github.com/duyetdev/aspect-extraction"
+Repository = "https://github.com/duyetdev/aspect-extraction"
+Issues = "https://github.com/duyetdev/aspect-extraction/issues"
+
+[tool.maturin]
+# Use the "abi3" Python limited API to build wheels compatible with multiple Python versions
+python-source = "python"
+features = ["python"]
+module-name = "aspect_extraction_core"
+
+# Build settings
+strip = true
